@@ -1,7 +1,15 @@
+from src.nucleotide_counter import count_nucleotides
 from src.validator import validate_sequence
+sequence = "ATGCGATAG"
 
-print(validate_sequence("ATGCGA"))      # Expected: True
-print(validate_sequence("atgcga"))      # Expected: True
-print(validate_sequence("AT GC GA"))    # Expected: True
-print(validate_sequence("ATGBCA"))      # Expected: False
-print(validate_sequence(""))            # Expected: False
+if validate_sequence(sequence):
+    counts = count_nucleotides(sequence)
+
+    print("DNA Sequence :", sequence)
+    print("Nucleotide Counts")
+
+    for base, count in counts.items():
+        print(f"{base} : {count}")
+
+else:
+    print("Invalid DNA Sequence")
