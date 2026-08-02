@@ -4,7 +4,7 @@ from src.gc_content import calculate_gc_content
 from src.reverse_complement import reverse_complement
 from src.transcription import transcribe_dna
 from src.translation import translate_rna
-
+from src.orf import find_orf
 
 def main():
     """
@@ -34,6 +34,12 @@ def main():
 
     protein = translate_rna(rna)
 
+    rna = transcribe_dna(sequence)
+
+    protein = translate_rna(rna)
+
+    orf = find_orf(rna)
+
     # Report
     print("\n" + "=" * 50)
     print("           DNA ANALYSIS REPORT")
@@ -55,6 +61,7 @@ def main():
 
     print(f"Protein Sequence    : {protein}")
 
+    print(f"First ORF        : {orf}")
     print("\n" + "=" * 50)
     print("Analysis Completed Successfully ✅")
     print("=" * 50)
