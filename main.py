@@ -6,7 +6,7 @@ Main program for GeneInsight.
 
 Author: Roshni Kathiresan
 Project: GeneInsight
-Version: 2.1
+Version: 3.0
 """
 
 from src.validator import validate_sequence
@@ -15,8 +15,10 @@ from src.gc_content import calculate_gc_content
 from src.reverse_complement import reverse_complement
 from src.transcription import transcribe_dna
 from src.translation import translate_rna
-from src.orf import find_orf     
+from src.orf import find_orf
 from src.fasta_reader import read_fasta
+from src.restriction_sites import find_restriction_sites
+from src.report import generate_report
 
 
 def main():
@@ -29,7 +31,7 @@ def main():
     print("=" * 60)
 
     # -----------------------------
-    # Choose Input Method
+    # Input Method
     # -----------------------------
     print("\nChoose Input Method")
     print("1. Enter DNA sequence manually")
@@ -76,8 +78,24 @@ def main():
 
     orf = find_orf(rna)
 
+    restriction_sites = find_restriction_sites(sequence)
+
     # -----------------------------
-    # Report
+    # Save Report
+    # -----------------------------
+    generate_report(
+        sequence,
+        counts,
+        gc_content,
+        reverse,
+        rna,
+        protein,
+        orf,
+        restriction_sites
+    )
+
+    # -----------------------------
+    # Display Report
     # -----------------------------
     print("\n" + "=" * 60)
     print("                DNA ANALYSIS REPORT")
@@ -96,6 +114,18 @@ def main():
     print(f"RNA Sequence          : {rna}")
     print(f"Protein Sequence      : {protein}")
     print(f"First ORF             : {orf}")
+
+    print("\nRestriction Enzyme Sites")
+    print("-" * 25)
+
+    for enzyme, positions in restriction_sites.items():
+        if positions:
+            print(f"{enzyme:<10}: {positions}")
+        else:
+            print(f"{enzyme:<10}: Not Found")
+
+    print("\n📄 Report saved successfully!")
+    print("Location : output/report.txt")
 
     print("\n" + "=" * 60)
     print("✅ Analysis Completed Successfully!")
