@@ -1,16 +1,22 @@
-# Python cache
+# Virtual Environment
+venv/
+
+# Python Cache
 __pycache__/
 *.pyc
 
-# Virtual environment
-venv/
-
-# VS Code settings
+# VS Code
 .vscode/
 
-# Output files
+# Output Files
 output/
 
-# Operating System files
+# Operating System
 .DS_Store
 Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Environment Variables
+.env
